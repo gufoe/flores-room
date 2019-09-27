@@ -39,8 +39,6 @@ export default {
   },
 
   data () {
-
-    console.log(this.$bvModal.msgBoxOk)
     return {
       modals: [{
         title: 'Error',
