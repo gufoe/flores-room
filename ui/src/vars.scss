@@ -1,0 +1,33 @@
+// $font-family-sans-serif: Dosis;
+// $font-family-sans-serif: plom;
+$font-family-sans-serif: sharetech;
+$font-family-sans-serif: sans-serif;
+// $font-family-sans-serif: juliussansone;
+$font-size-base: 1rem;
+// html { font-size: .8rem; }
+// body { font-size: 1rem!important; }
+$body-bg: #f8f9fa;
+$primary: #019875;
+$brand-primary: $primary;
+
+$enable-shadows: false;
+$input-border-focus: $primary;
+$border-radius: 2px;
+
+$input-btn-focus-color: lighten($primary, 6%);
+$input-focus-border-color: lighten($primary, 2%);
+// $input-btn-focus-box-shadow:  none;
+$input-btn-padding-y:         .275rem !default;
+$input-btn-padding-x:         .55rem !default;
+
+$headings-font-family: sans-serif;
+$headings-font-weight: bold;
+$headings-color: darken($primary, 0%);
+// h1,h2,h3,h4,h5,h6 { letter-spacing: 2px }
+$theme-colors: (
+  "primary": $primary,
+  "danger": #f00
+);
+
+
+$modal-backdrop-bg: rgba(140,140,140,.7);

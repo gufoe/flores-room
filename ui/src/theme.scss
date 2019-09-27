@@ -1,0 +1,306 @@
+//  This is a flavor file. Duplicate it and edit it to create your own flavor. Read instructions carefully.
+//  Single-line comments, starting with '//' will not be included in your final CSS file. Multiline comments,
+//  structured like the flavor description below, will be included in your final CSS file.
+/*
+  Flavor name: Default (mini-default)
+  Author: Angelos Chalaris (chalarangelo@gmail.com)
+  Maintainers: Angelos Chalaris
+  mini.css version: v3.0.1
+*/
+
+@import './vars';
+
+@import '~bootstrap/scss/bootstrap';
+
+
+
+// @import url('https://fonts.googleapis.com/css?family=Dosis&display=swap');
+// @font-face {
+//   src: url('~/fonts/BonvenoCF-Light.otf');
+//   font-family: bonveno;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/Thyssen J Italic.ttf');
+//   font-family: thyssen;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/PlomPraeng.ttf');
+//   font-family: plom;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/Penelope Anne.ttf');
+//   font-family: penelope;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/JuliusSansOne-Regular.ttf');
+//   font-family: juliussansone;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/sharetechmono-regular.ttf');
+//   font-family: sharetech;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+//
+// @font-face {
+//   src: url('~/fonts/BungeeHairline-Regular.ttf');
+//   font-family: bungee;
+//   font-style: normal;
+//   font-weight: 400;
+// }
+
+
+* { outline: none; user-select: none; }
+pre, code { outline: none; user-select: text; }
+
+// .form-control {
+//   &:focus {
+//      box-shadow: none;
+//   }
+// }
+
+html, body {
+  height: 100%;
+  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0);
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  &.grow {
+    > * { flex-grow: 1; color: #000 }
+  }
+}
+
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.full-height {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  // background: rgba(0,0,200,.05);
+}
+.full-height-scroll {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  // background: rgba(0,0,200,.05);
+}
+
+
+.is-relative {
+  position: relative;
+}
+
+
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
+.is-middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.is-block { display: block; }
+
+a, a:visited, a:focus {
+  cursor: pointer;
+  color: $primary!important;
+}
+
+
+.page-padded {
+  padding: 1rem;
+}
+
+b {
+  color: $primary;
+  font-weight: normal;
+}
+
+.nm { margin: 0 0 0 0; }
+
+.my-form-row {
+  margin-bottom: .5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  input, select {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+
+  label {
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-grow: 1;
+    input[type=checkbox] {
+      margin: 0 5px 0 0;
+    }
+  }
+}
+
+.align-center { align-items: center; }
+.justify-center { justify-content: center; }
+
+
+
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes grow-vert {
+    from { height: 0; }
+    to   { height: auto; }
+}
+.animate-fadein {
+  animation: fadein 300ms;
+}
+
+
+.lh-2 { line-height: 1.8 }
+
+
+.input-group {
+  input:first-of-type {
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+  }
+  input + input {
+    border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+    border-left: 0;
+  }
+  // background: #0f0!important;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+::selection {
+    background-color: $primary;
+    color: #fff;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+
+.mx-datepicker, .mx-calendar {
+  font-family: inherit;
+}
+
+
+.modal-title {
+  color: inherit!important;
+}
+
+
+@media (min-width: 600px) {
+  #content {
+    padding: 0 20vw;
+  }
+}
+@media (min-width: 1000px) {
+  #content {
+    padding: 0 30vw;
+  }
+}
+
+
+.bed {
+  width: .7em;
+  height: 1em;
+  // background-color: #f00;
+  // border-radius: 100%;
+  display: inline-block;
+  background-position: center bottom;
+  // background-size: auto 80%;
+  background-repeat: no-repeat;
+  &.single { background-image: url(~/svg/single.svg); }
+  &.double { background-image: url(~/svg/double.svg); }
+  background-size: 99%;
+  &.single-bunk {
+    background-image: url(~/svg/single-bunk.svg);
+  }
+  &.double-bunk {
+    background-size: fit;
+    background-image: url(~/svg/double-bunk.svg);
+  }
+}
+
+
+.vbst-item {
+  &.active {
+    color: #fff!important;
+  }
+}
+
+fieldset.form-group {
+  border: 1px solid #ddd;
+  padding: 0 1rem .5rem;
+  border-radius: .5rem;
+  // background: rgba(0,0,0,.01);
+  box-shadow: 0 0 .6rem rgba(0,0,0,.1);
+  .legend {
+    font-size: 1rem;
+    font-weight: bold;
+    width: auto;
+    padding: 0 .1rem;
+    background: $body-bg;
+    color: $primary;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
