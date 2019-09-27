@@ -1,0 +1,16 @@
+Options +FollowSymLinks -MultiViews -Indexes
+
+DirectoryIndex main.php
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+RewriteRule ^(.*)$ dist/$1 [L]
+
+RewriteRule ^$ dist/index.html [L]
+
+
+RewriteCond %{THE_REQUEST} \s/dist/ [NC,OR]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L, QSA]
