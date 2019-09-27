@@ -30,32 +30,38 @@
 export default {
   data () {
     return {
-      is_loading: false,
+      is_loading: true,
     }
   },
 
   mounted () {
-    window.FB.init({
-      appId            : '2189561351345047',
-      autoLogAppEvents : false,
-      xfbml            : false,
-      version          : 'v4.0'
-    });
+    this._int = setInterval(() => {
+      if (window.FB) {
+        clearInterval(this._int)
+        console.log('fb found')
+        window.FB.getLoginStatus(() => {
+          console.log('login status found')
+          this.is_loading = false
+        });
+      }
+    }, 500)
+  },
+
+  beforeDestroy () {
+    clearInterval(this._int)
   },
 
   methods: {
     login_fb() {
       this.is_loading = true
-      window.FB.getLoginStatus(() => {
-        window.FB.login(res => {
-          if (res.authResponse) {
-            this.$store.loginWithDriver('facebook', null, res.authResponse.accessToken, {
-              finally: () => { this.is_loading = false }
-            })
-          } else {
-            this.is_loading = false
-          }
-        })
+      window.FB.login(res => {
+        if (res.authResponse) {
+          this.$store.loginWithDriver('facebook', null, res.authResponse.accessToken, {
+            finally: () => { this.is_loading = false }
+          })
+        } else {
+          this.is_loading = false
+        }
       })
     },
   },

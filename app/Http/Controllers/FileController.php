@@ -15,19 +15,19 @@ class FileController extends Controller {
         if (!is_file(public_storage("$token.jpg"))) abort(400, 'Invalid image');
         img_resize(public_storage("$token.jpg"), public_storage("$token-lg.jpg"), [
             'width' => 1000,
-            'quality' => 85,
+            'quality' => 90,
         ]);
         if (!is_file(public_storage("$token-lg.jpg"))) {
             unlink(public_storage("$token.jpg"));
             abort(400, 'Cannot resize image');
         }
         img_resize(public_storage("$token.jpg"), public_storage("$token-md.jpg"), [
-            'width' => 500,
-            'quality' => 85,
+            'width' => 600,
+            'quality' => 90,
         ]);
         img_resize(public_storage("$token.jpg"), public_storage("$token-sm.jpg"), [
-            'width' => 200,
-            'quality' => 85,
+            'width' => 300,
+            'quality' => 90,
         ]);
         // unlink(public_storage("$token.jpg"));
         return $token;
