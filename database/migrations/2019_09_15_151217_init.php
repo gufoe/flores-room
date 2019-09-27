@@ -33,6 +33,7 @@ class Init extends Migration
             $table->string('auth_token', 500)->index(); // password or social token
             $table->string('wa_number')->nullable();
             $table->string('referral_code')->unique();
+            $table->boolean('is_admin')->default(false)->index();
             $table->bigInteger('referrer_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -74,13 +75,15 @@ class Init extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('place_id')->unsigned();
             $table->string('name');
+            // $table->string('type');
             $table->boolean('is_dorm')->default(false)->index();
-            $table->decimal('price', 10, 2)->unsigned()->nullable()->index();
+            $table->boolean('is_active')->default(false)->index();
+            $table->decimal('price', 10, 2)->unsigned()->index();
             $table->string('shape')->default('[]'); // derives b1 and b2 count
             $table->tinyInteger('b1_count')->unsigned()->index();
             $table->tinyInteger('b2_count')->unsigned()->index();
-            $table->decimal('b1_price', 10, 2)->unsigned()->nullable()->index();
-            $table->decimal('b2_price', 10, 2)->unsigned()->nullable()->index();
+            $table->decimal('b1_price', 10, 2)->unsigned()->index();
+            $table->decimal('b2_price', 10, 2)->unsigned()->index();
             $table->string('perks')->index();
             $table->boolean('is_female_only')->default(false);
             $table->timestamps();
@@ -112,11 +115,12 @@ class Init extends Migration
         Schema::create('booking_units', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('booking_id')->unsigned();
-            $table->bigInteger('room_id')->unsigned()->nullable();
-            $table->tinyInteger('b1_count')->unsigned()->nullable()->index();
-            $table->tinyInteger('b2_count')->unsigned()->nullable()->index();
+            $table->bigInteger('room_id')->unsigned();
+            $table->tinyInteger('b1_count')->unsigned()->index();
+            $table->tinyInteger('b2_count')->unsigned()->index();
             $table->decimal('b1_price', 10, 2)->unsigned()->nullable()->index();
             $table->decimal('b2_price', 10, 2)->unsigned()->nullable()->index();
+            $table->decimal('price', 10, 2)->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');

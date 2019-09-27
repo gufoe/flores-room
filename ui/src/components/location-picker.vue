@@ -5,7 +5,13 @@
     </div>
     <div class="full-height">
       <l-map :zoom="16" @click="mapClick" ref="map">
-        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
+        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png">
+        </l-tile-layer>
+        <!-- <l-layer-group> -->
+          <l-marker v-if="lat && lon"
+          :lat-lng="{lat, lng:lon}"
+          />
+        <!-- </l-layer-group> -->
         <l-geosearch ref="geosearch" :options="geosearch_options" ></l-geosearch>
       </l-map>
     </div>
@@ -17,6 +23,7 @@
 import {
   LMap,
   LTileLayer,
+  // LLayerGroup,
   LMarker,
 } from 'vue2-leaflet'
 import { Icon } from 'leaflet'
@@ -39,7 +46,8 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    // LMarker,
+    // LLayerGroup,
+    LMarker,
     LGeosearch,
   },
 
@@ -70,7 +78,7 @@ export default {
         autoClose: true,
         searchLabel: 'Search location...',
       },
-      marker: null,
+      // marker: null,
       is_ready: false,
     }
   },
@@ -80,7 +88,7 @@ export default {
       this.is_ready = true
       this.$nextTick(() => {
         let pos = [ this.lat, this.lon ]
-        this.marker = LMarker(pos).addTo(this.map)
+        // this.marker = LMarker(pos).addTo(this.map)
         this.map.setView(pos, 18)
 
         this.$refs.map.$el.querySelector('.leaflet-control-geosearch.bar form').addEventListener('click', e => e.stopPropagation())
@@ -98,10 +106,10 @@ export default {
     mapClick (loc) {
       console.log(loc)
       window.x = this.map
-      if (this.marker) {
-        this.marker.remove()
-      }
-      let marker = this.marker = LMarker(loc.latlng).addTo(this.map)
+      // if (this.marker) {
+      //   this.marker.remove()
+      // }
+      // let marker = this.marker = LMarker(loc.latlng).addTo(this.map)
       this.$emit('update:lat', loc.latlng.lat)
       this.$emit('update:lon', loc.latlng.lng)
 
@@ -110,9 +118,9 @@ export default {
       if (!this.with_addr) return
 
       this.$http.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.latlng.lat}&lon=${loc.latlng.lng}`).then(res => {
-        if (marker != this.marker) return
+        // if (marker != this.marker) return
         if (res.data.error) {
-          marker.remove()
+          // marker.remove()
         } else {
           console.log('emitting', res.data.address)
           this.$emit('addr', res.data.address)

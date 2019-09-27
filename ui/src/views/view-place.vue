@@ -39,8 +39,8 @@
     <div class="page-padded">
       <div v-if="place.perks.length" class="mb-4">
         <h3>Features</h3>
-        <div v-for="perk in place.perks">
-          ✓ {{ $t(`perk.${perk}`) }}
+        <div v-for="perk in place.perks" :key="perk">
+          ✓ {{ $t(`place_perk.${perk}`) }}
         </div>
       </div>
     </div>
@@ -61,30 +61,92 @@
           </div>
         </div>
       </div>
-      <div v-if="dorms = place.rooms.filter(p => p.is_dorm)">
-        <div v-for="room in dorms" class="book-room">
+      <div v-if="(private_rooms = place.rooms.filter(p => !p.is_dorm)).length">
+        <div class="text-center my-2">
+          <h4 class="nm">Private Rooms:</h4>
+        </div>
+        <div v-for="room in private_rooms" :key="room.id" class="book-room">
           <div class="row no-gutters">
             <div class="col-5">
-              <div>{{ room.name }}</div>
-              <div class="room-shape small">
-                <div v-for="(size, type) in room.shape">
-                  {{ type }}:
-                  {{ size }}
+              <b style="font-size: 1.1rem">{{ room.name }}</b>
+              <div class="room-shape">
+                Beds:
+                <div v-for="(count, type) in room.shape" :key="type" style="display: inline-block; font-size: 1rem; line-height: 1;">
+                  <span style="display: inline-block; margin-right: .3rem; vertical-align: bottom;">{{ count }}x</span>
+                  <i :class="`bed ${type}`" style="display: inline-block; font-size: 1.8rem; vertical-align: bottom;"></i>
                 </div>
               </div>
-              <div v-for="perk in room.perks" class="perk small">
-                ✓ {{ $t(`room-perk.${perk}`) }}
+              <div v-for="perk in room.perks" :key="perk" class="perk small">
+                ✓ {{ $t(`room_perk.${perk}`) }}
               </div>
-
             </div>
-            <div v-for="size in [1,2]"
+            <div v-for="size in [1,2]" :key="size"
             v-if="(beds = room[`av_b${size}`]) && (price = room[`b${size}_price`])"
             class="col text-center ml-1">
               <div>
-                <span class="small">
-                  <price :price="price"/>
-                </span>
-                <div class="small">max {{ beds }} beds</div>
+                <div class="row no-gutters align-center">
+                  <div class="col text-right">
+                    <i style="font-size: 2.6rem; margin-right: .5rem" :class="{bed: true, single: size==1, double: size==2 }"></i>
+                  </div>
+                  <div class="col text-left">
+                    <span>
+                      <price :price="price"/>
+                    </span>
+                    <div class="small">max {{ beds }} beds</div>
+                  </div>
+                </div>
+                <div>
+                  <input
+                  :value="bookings[room.id][size]"
+                  @input="bookings[room.id][size] = $event.target.value*1"
+                  class="custom-range" type="range"
+                  :min="0" :max="Math.min(beds, filters.n)"
+                  style="width: 100%"/>
+                </div>
+                <div v-if="(br = bookings[room.id]) && br[size]">
+                  {{ br[size] }}<span class="small">x</span> =
+                  <b><price :price="br[size] * room[`b${size}_price`]"/></b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="(dorms = place.rooms.filter(p => p.is_dorm)).length">
+        <div class="text-center my-2">
+          <h4 class="nm">Dorms:</h4>
+        </div>
+        <div v-for="room in dorms" :key="room.id" class="book-room">
+          <div class="row no-gutters">
+            <div class="col-5">
+              <b style="font-size: 1.1rem">{{ room.name }}</b>
+              <div class="room-shape">
+                Beds:
+                <div v-for="(count, type) in room.shape" :key="type" style="display: inline-block; font-size: 1rem; line-height: 1;">
+                  <span style="display: inline-block; margin-right: .3rem; vertical-align: bottom;">{{ count }}x</span>
+                  <i :class="`bed ${type}`" style="display: inline-block; font-size: 1.8rem; vertical-align: bottom;"></i>
+                </div>
+              </div>
+              <div v-for="perk in room.perks" :key="perk" class="perk small">
+                ✓ {{ $t(`room_perk.${perk}`) }}
+              </div>
+            </div>
+            <div v-for="size in [1,2]" :key="size"
+            v-if="(beds = room[`av_b${size}`]) && (price = room[`b${size}_price`])"
+            class="col text-center ml-1">
+              <div>
+                <div class="row no-gutters align-center">
+                  <div class="col text-right">
+                    <i style="font-size: 2.6rem; margin-right: .5rem" :class="{bed: true, single: size==1, double: size==2 }"></i>
+                  </div>
+                  <div class="col text-left">
+                    <span>
+                      <price :price="price"/>
+                    </span>
+                    <div class="small">max {{ beds }} beds</div>
+                  </div>
+                </div>
                 <div>
                   <input
                   :value="bookings[room.id][size]"
@@ -105,7 +167,10 @@
 
       <div class="checkout">
         <h2>Checkout</h2>
-        <div v-if="!booking">
+        <div v-if="location.hostname.match(/\.com$/)">
+          Checkout has not been implemented yet
+        </div>
+        <div v-else-if="!booking">
           Select the beds/rooms you want
         </div>
         <div v-else>
@@ -157,6 +222,7 @@ export default {
       place: this.src_place,
       filters: this.src_filters,
       bookings: null,
+      location,
     }
   },
 
@@ -237,7 +303,7 @@ export default {
       overflow: hidden;
     }
     .book-room {
-      padding: 1rem .4rem;
+      padding: 0 .4rem 1rem;
       border: 1px solid #ddd;
       border-width: 0 0 1px;
       overflow: hidden;

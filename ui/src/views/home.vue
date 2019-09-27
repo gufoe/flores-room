@@ -2,8 +2,9 @@
   <div class="page-padded text-center">
     <h4 class="m-0">Welcome to</h4>
     <h1 class="m-0">Flores Room</h1>
+    <i>Your finest cheapest room</i>
 
-    <div class="my-5">
+    <div class="my-4">
         <search-box/>
     </div>
 

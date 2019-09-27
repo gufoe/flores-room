@@ -12,14 +12,21 @@
     <div v-else>
       <hr>
       <template v-for="place in places">
-        <div :key="place.id" @click="$router.push({ name: 'manage-place', params: { id: place.id }})" class="place-block">
+        <div :key="place.id" @click="$router.push({ name: 'manage-place', params: { id: place.id }})" class="place-block pointer">
           <h4>{{ place.name }}</h4>
-          <div class="place-location">
+          <div class="small">
             {{ place.loc_addr }},
             {{ place.loc_city }}
           </div>
-          <div class="place-rooms">
-            {{ place.rooms.length }} rooms
+          <div class="small">
+            {{ place.rooms.filter(r=>r.is_active).length }} active rooms
+            -
+            <span v-if="place.is_active" class="text-success">active</span>
+            <span v-else class="text-danger">suspended</span>
+            -
+            <span v-if="place.is_verified" class="text-success">verified</span>
+            <span v-else class="text-danger">not verified</span>
+
           </div>
           <!-- <a href="#" @click.prevent="$router.push({ name: 'edit-place', params: { id: place.id }})">edit</a> -->
         </div>

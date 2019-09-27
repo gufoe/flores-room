@@ -9,6 +9,9 @@ class Room extends Model {
     public $hidden = [
         'bookings',
     ];
+    public $appends = [
+        'places',
+    ];
     public $casts = [
         'perks' => 'array',
         'shape' => 'array',
@@ -16,6 +19,7 @@ class Room extends Model {
         'b2_price' => 'float',
         'is_dorm' => 'boolean',
         'is_female_only' => 'boolean',
+        'is_active' => 'boolean',
         'availability' => 'integer',
         'av_b1' => 'integer',
         'av_b2' => 'integer',
@@ -28,6 +32,10 @@ class Room extends Model {
         $q->whereHas('place', function($q) use ($u) {
             $q->safeWrite($u);
         });
+    }
+
+    public function scopeActive($q) {
+        $q->where('is_active', true);
     }
 
     public function place() {
@@ -78,7 +86,12 @@ class Room extends Model {
                     AND B.deleted_at IS NULL
                     AND B.check_in <= '$date'
                     AND B.check_out > '$date'
+                GROUP BY room_id -- important!
             ), 0)
         )";
+    }
+
+    public function getPlacesAttribute() {
+        return $this->b1_count + $this->b2_count*2;
     }
 }

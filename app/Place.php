@@ -12,6 +12,8 @@ class Place extends Model {
         'beds' => 'array',
         'loc_lat' => 'float',
         'loc_lon' => 'float',
+        'is_active' => 'bool',
+        'is_verified' => 'bool',
     ];
 
     public function scopeSafeWrite($q, User $u = null) {

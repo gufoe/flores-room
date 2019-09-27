@@ -21,6 +21,12 @@
 //   font-style: normal;
 //   font-weight: 400;
 // }
+@font-face {
+  src: url('~/fonts/dosis.woff2');
+  font-family: dosis;
+  font-style: normal;
+  font-weight: 100;
+}
 //
 // @font-face {
 //   src: url('~/fonts/Thyssen J Italic.ttf');
@@ -270,12 +276,11 @@ input[type=number]::-webkit-outer-spin-button {
   background-repeat: no-repeat;
   &.single { background-image: url(~/svg/single.svg); }
   &.double { background-image: url(~/svg/double.svg); }
-  background-size: 99%;
+  background-size: contain;
   &.single-bunk {
     background-image: url(~/svg/single-bunk.svg);
   }
   &.double-bunk {
-    background-size: fit;
     background-image: url(~/svg/double-bunk.svg);
   }
 }
@@ -292,15 +297,34 @@ fieldset.form-group {
   padding: 0 1rem .5rem;
   border-radius: .5rem;
   // background: rgba(0,0,0,.01);
-  box-shadow: 0 0 .6rem rgba(0,0,0,.1);
+  background: #fff;
+  box-shadow: .0rem .0rem .6rem rgba(0,0,0,.1);
   .legend {
     font-size: 1rem;
-    font-weight: bold;
+    // font-weight: bold;
     width: auto;
-    padding: 0 .1rem;
-    background: $body-bg;
-    color: $primary;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    padding: 0 .5rem;
+    background: #fff;
+    // border: inherit;
+    border-radius: 100px;
+    background: $primary;
+    color: #fff;
+    box-shadow: inherit;
+    // letter-spacing: 1px;
+    // text-transform: uppercase;
+  }
+}
+
+
+.pointer {
+  cursor: pointer;
+}
+
+
+.gutters-1 {
+  margin-left: -4px;
+  margin-right: -4px;
+  > * {
+    padding: 0 4px;
   }
 }

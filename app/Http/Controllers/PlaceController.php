@@ -54,6 +54,16 @@ class PlaceController extends Controller
     public function list($id = null) {
         $q = Place::select();
 
+        if (user() && user()->is_admin) {
+            if (request('with_user')) {
+                $q->with('user');
+            }
+        }
+
+        if (request('safe_write')) {
+            $q->safeWrite();
+        }
+
         if ($av = request('availability')) {
             if (   !is_date($av['check_in'])
                 || !is_date($av['check_out'])
@@ -68,7 +78,7 @@ class PlaceController extends Controller
             $dates = dates_to_array($av['check_in'], $av['check_out']);
 
             $q->with(['rooms' => function($q) use ($dates) {
-                $q->select();
+                $q->select()->active();
                 $q->addAvailability($dates);
             }]);
         } else {
@@ -88,9 +98,9 @@ class PlaceController extends Controller
 
         if ($order_by = request('order_by')) {
             if (!in_array($order_by, [
-                'name', 'distance', 'price'
+                'name', 'distance', 'price', 'created_at'
             ])) abort(400, 'Invalid order_by supplied');
-            $q->orderBy($order_by, request('order_by_desc') ? 'desc' : 'asc');
+            $q->orderBy($order_by, request('order_desc') ? 'desc' : 'asc');
         }
 
         if ($id) {
@@ -106,5 +116,18 @@ class PlaceController extends Controller
             }
             return $res->values();
         }
+    }
+
+    public function toggleActive(int $id) {
+        $p = Place::safeWrite()->findOrFail($id);
+        $p->update([ 'is_active' => !$p->is_active ]);
+        return $p;
+    }
+
+    public function toggleVerified(int $id) {
+        if (!user()->is_admin) abort(403, 'You are not an admin');
+        $p = Place::safeWrite()->findOrFail($id);
+        $p->update([ 'is_verified' => !$p->is_verified ]);
+        return $p;
     }
 }

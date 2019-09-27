@@ -10,6 +10,9 @@ class User extends Authenticatable {
     public $hidden = [
         'auth_token',
     ];
+    public $casts = [
+        'is_admin' => 'boolean',
+    ];
 
     public function sessions() {
         return $this->hasMany(Session::class);

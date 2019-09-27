@@ -22,6 +22,8 @@ Route::post('login', 'UserController@login');
 Route::get('user', 'UserController@me');
 
 Route::get('places/{id?}', 'PlaceController@list');
+Route::post('places/{id}/toggle-active', 'PlaceController@toggleActive');
+Route::post('places/{id}/toggle-verified', 'PlaceController@toggleVerified');
 Route::post('places', 'PlaceController@save');
 Route::post('rooms', 'RoomController@save');
 Route::post('files/image', 'FileController@uploadImage');

@@ -7,7 +7,17 @@
 
     <template v-for="room in rooms">
       <div :key="room.id" @click="$router.push({ name: 'edit-room', params: { room_id: room.id }})" class="room-block">
-        {{ room.name }}
+        <div>{{ room.name }}</div>
+        <div class="small">
+          {{ room.places }} people room
+          -
+          {{ $t('room_type.' + (room.is_dorm ? 'dorm' : 'private')) }}
+          -
+          <span v-if="room.is_active" class="text-success">active</span>
+          <span v-else class="text-danger">suspended</span>
+        </div>
+
+
         <!-- <a href="#" @click.prevent="$router.push({ name: 'edit-room', params: { id: room.id }})">edit</a> -->
       </div>
     </template>

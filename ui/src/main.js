@@ -32,17 +32,21 @@ axios.interceptors.response.use(res => res, err => {
   let message = ''
   if (!err.response) {
     message = err.message
-  } else if ([400, 401, 403, 500].includes(err.response.status)) {
-    store.root.$bvModal.msgBoxOk(err.response.data.message, {
-      title: 'Error!',
-      size: 'sm',
-      okVariant: 'danger',
-      headerClass: 'p-2  text-center border-bottom-0 text-danger',
-      bodyClass: 'py-1 px-2 text-center ',
-      footerClass: 'p-2 border-top-0 text-center ',
-      centered: true,
-    })
+  } else if (err.response.data.message) {
+    message = err.response.data.message
+  } else {
+    message = err.message || 'Connection error'
   }
+
+  store.root.$bvModal.msgBoxOk(message, {
+    title: 'Error!',
+    size: 'sm',
+    okVariant: 'danger',
+    headerClass: 'p-2  text-center border-bottom-0 text-danger',
+    bodyClass: 'py-1 px-2 text-center ',
+    footerClass: 'p-2 border-top-0 text-center ',
+    centered: true,
+  })
 
   return Promise.reject(err)
 })

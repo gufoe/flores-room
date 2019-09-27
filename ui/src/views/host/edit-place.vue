@@ -11,7 +11,7 @@
         <div class="my-form-row">
           Type
           <select v-model="form.type" class="form-control">
-            <option v-for="type in $store.place_types" :key="type" :value="type">{{ $t(type) }}</option>
+            <option v-for="type in $store.place_types" :key="type" :value="type">{{ $t(`place_type.${type}`) }}</option>
           </select>
         </div>
       </fieldset>
@@ -33,7 +33,7 @@
           <input v-model="form.loc_city" type="text" class="form-control"/>
         </div>
         <div class="my-form-row">
-          Address
+          Road
           <input v-model="form.loc_addr" type="text" class="form-control"/>
         </div>
       </fieldset>
@@ -83,11 +83,11 @@
           <label>
             <input type="checkbox" :checked="form.perks.includes(perk)"
             @change="form.perks.includes(perk) ? form.perks.splice(form.perks.indexOf(perk), 1) : form.perks.push(perk)"/>
-            {{ $t(`perk.${perk}`) }}
+            {{ $t(`place_perk.${perk}`) }}
           </label>
         </div>
       </fieldset>
-      <div class="text-center" style="margin: 2rem 0 0">
+      <div class="text-center my-4">
         <button :disabled="is_saving" @click.prevent="$router.back()" class="btn btn-danger" type="button">Back</button>
         &nbsp;
         <button :disabled="is_saving" class="btn btn-primary" type="submit">Save</button>
@@ -120,8 +120,8 @@ export default {
           perks: [],
           pics: [],
           images: [],
-          loc_city: 'xxx',
-          loc_addr: 'xxx',
+          loc_city: '',
+          loc_addr: '',
           loc_lat: 0,
           loc_lon: 0,
         }
@@ -164,10 +164,12 @@ export default {
       this.is_saving = true
       this.$http.post(`places`, this.form).then(res => {
         // this.form = res.data
+        if (this.form.user_id == this.$store.user.id) this.$store.refreshUser()
         if (!this.form.id) {
-          this.$store.user.places.push(res.data)
+          this.$router.replace({ name: 'edit-room', params: { id: res.data.id } })
+        } else {
+          this.$router.push({ name: 'manage-place', params: { id: res.data.id } })
         }
-        this.$router.push({ name: 'manage-place', params: { id: res.data.id } })
       }).finally(() => { this.is_saving = false })
     }
   },

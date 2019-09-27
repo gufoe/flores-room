@@ -14,8 +14,15 @@
         <div v-if="$store.user && $store.user.places.length" @click="$router.push({ name: 'manage-places' })" :selected="['manage-places'].includes($route.name)">
           <span>Places</span>
         </div>
+        <div v-if="$store.user && $store.user.is_admin" @click="$router.push({ name: 'admin' })" :selected="['admin'].includes($route.name)">
+          <span>Admin</span>
+        </div>
       </div>
       <login v-if="needs_login" id="content"/>
+      <div v-else-if="!is_allowed" id="content" class="text-center is-middle pb-5">
+        <h1>Not Allowed</h1>
+        <i>You do not have the permissions to view this page</i>
+      </div>
       <div v-else class="full-height-scroll" id="content">
         <router-view class="animate-fadein"/>
       </div>
@@ -49,7 +56,10 @@ export default {
   computed: {
     needs_login () {
       return !this.$store.user && this.$route.meta.auth
-    }
+    },
+    is_allowed () {
+      return !this.$route.meta.admin || (this.$store.user && this.$store.user.is_admin)
+    },
   }
 }
 </script>

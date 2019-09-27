@@ -14,8 +14,8 @@ class RoomController extends Controller
     public function save() {
         $data = [
             'name' => request('name'),
-            'count' => (int) request('count') ?: 1,
             'is_dorm' => !! request('is_dorm'),
+            'is_active' => !! request('is_active'),
             'is_female_only' => !! request('is_female_only'),
             'perks' => (array) request('perks'),
             'shape' => array_filter((array) request('shape')),
@@ -24,6 +24,7 @@ class RoomController extends Controller
         validate($data, [
             'name' => 'required|string',
             'is_dorm' => 'required|boolean',
+            'is_active' => 'required|boolean',
             'perks' => 'array',
             'perks.*' => 'required|string',
             'shape' => 'array|min:1',
@@ -34,13 +35,13 @@ class RoomController extends Controller
         $data['b2_count'] = (int) @$data['shape']['double'] + ((int) @$data['shape']['double-bunk']) * 2;
 
         if ($data['is_dorm']) {
-            $data['price'] = null;
+            $data['price'] = 0;
             $data['b1_price'] = (int) request('b1_price');
             $data['b2_price'] = (int) request('b2_price');
         } else {
             $data['price'] = (int) request('price');
-            $data['b1_price'] = null;
-            $data['b2_price'] = null;
+            $data['b1_price'] = 0;
+            $data['b2_price'] = 0;
         }
 
         $x = null;

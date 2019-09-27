@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="input-group mb-3 justify-center">
+  <div class="input-group justify-center">
     <div class="input-group-prepend">
       <span class="input-group-text">₹</span>
     </div>

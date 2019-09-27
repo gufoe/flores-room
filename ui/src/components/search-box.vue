@@ -11,7 +11,7 @@
           :bounding-box.sync="form.bounding_box"
           />
         </div>
-        <div class="col-4 pl-3">
+        <div class="col-3 pl-3">
           People
           <input v-model="form.n" type="number" min="0" class="form-control">
         </div>

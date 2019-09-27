@@ -18,7 +18,7 @@ class BookingController extends Controller
 
         $data = [
             'place_id' => request('place_id'),
-            'price' => request('total'), // TODO: change to local
+            'price' => request('total'),
             'code' => str_random(6),
             'check_in' => request('check_in'),
             'check_out' => request('check_out'),
@@ -47,13 +47,17 @@ class BookingController extends Controller
                 ->findOrFail($rid);
             $data = [
                 'room_id' => $room->id,
+                'price' => 0,
+                'b1_count' => 0,
+                'b2_count' => 0,
             ];
             foreach ($orders as $type => $count) {
                 if (!preg_int($count) || !$count) continue;
                 if ($type == 'room') {
                     if ($room->is_dorm) abort(400, "Cannot make this kind of booking - $type");
-                    // TODO add price and full_room=true
-                    // $data['price'] = $room->price;
+                    $data["b1_count"] = (int) $room->b1_count;
+                    $data["b2_count"] = (int) $room->b2_count;
+                    $data['price'] = $room->price;
                 } else {
                     if (!$room->is_dorm) abort(400, "Cannot make this kind of booking - $type");
                     if ($room->{"av_b{$type}"} < $count) {
@@ -61,18 +65,18 @@ class BookingController extends Controller
                     }
                     $data["b{$type}_count"] = (int) $count;
                     $data["b{$type}_price"] = $room->{"b{$type}_price"};
-                    // TODO add final price to unit
-                    // $data['price']+= $data["b{$type}_count"] * $data["b{$type}_price"];
+                    $data['price']+= $data["b{$type}_count"] * $data["b{$type}_price"];
                 }
             }
 
-            // TODO: change this condition
-            if (count($data) == 1) continue;
+            if (!$data['price']) continue;
 
             $b->units()->create($data);
         }
 
-        // TODO check if price matches
+        if ($b->units()->sum('price') != $b->price) {
+            abort(400, 'The price has changed and thus the booking has not been made. Please refresh the page.');
+        }
 
         \DB::commit();
     }

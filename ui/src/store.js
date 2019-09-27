@@ -2,9 +2,9 @@ export default {
   is_ready: false,
   user: null,
   $http: null,
-  place_types: ['homestay', 'guesthouse', 'hostel', 'hotel'],
+  place_types: ['homestay', 'residence', 'guesthouse', 'hostel', 'hotel'],
   place_perks: ['coffee-tea', 'restaurant', 'bar', 'swimming-pool', 'pool-table'],
-  room_perks: ['ac', 'desk', 'private-bathroom', 'hot-shower'],
+  room_perks: ['ac', 'desk', 'private-bathroom', 'hot-shower', 'window', 'terrace'],
   bed_types: ['single', 'double', 'single-bunk', 'double-bunk'],
 
   install (Vue) {
