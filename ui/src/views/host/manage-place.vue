@@ -1,6 +1,9 @@
 <template lang="html">
   <div class="page-manage-place mx-2">
-    <div v-if="place">
+    <loading-screen v-if="!place">
+      Loading data...
+    </loading-screen>
+    <div v-else>
       <h1 @click="$router.push({name:'manage-place'})">{{ place.name }}</h1>
       <router-view v-if="$route.name != 'manage-place'" :place="place"/>
       <div v-else class="mt-3">

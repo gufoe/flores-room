@@ -64,11 +64,11 @@ self.__precacheManifest = [
     "url": "css/chunk-vendors.2bc34582.css"
   },
   {
-    "revision": "9c212f40660289c95f96",
-    "url": "js/app.cbe7d263.js"
+    "revision": "c4a4951cf1da478816dc",
+    "url": "js/app.201c7712.js"
   },
   {
-    "revision": "8a61f49216ba018d30ec42544e16c605",
+    "revision": "d5205c30e5aed899576055a5428effed",
     "url": "index.html"
   },
   {
@@ -84,8 +84,8 @@ self.__precacheManifest = [
     "url": "js/chunk-2d0afaa8.afc90e82.js"
   },
   {
-    "revision": "451fe5299d393f7004c5",
-    "url": "js/chunk-24826294.f856c047.js"
+    "revision": "eaa45877f747e0b92723",
+    "url": "js/chunk-24826294.f7b36fec.js"
   },
   {
     "revision": "361108a8c45dd806a7fdef03d5f33bda",
@@ -120,11 +120,11 @@ self.__precacheManifest = [
     "url": "fonts/PlomPraeng.ttf"
   },
   {
-    "revision": "451fe5299d393f7004c5",
+    "revision": "eaa45877f747e0b92723",
     "url": "css/chunk-24826294.0e433876.css"
   },
   {
-    "revision": "9c212f40660289c95f96",
+    "revision": "c4a4951cf1da478816dc",
     "url": "css/app.903ce560.css"
   }
 ];
