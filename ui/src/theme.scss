@@ -71,8 +71,8 @@
 // }
 
 
-* { outline: none; user-select: none; }
-pre, code { outline: none; user-select: text; }
+* { user-select: none; user-select: none; }
+.select, pre, code { user-select: text; }
 
 // .form-control {
 //   &:focus {

@@ -25,6 +25,21 @@ export default {
       return str
   },
 
+  hash (thing) {
+    if (typeof thing != 'string') thing = JSON.stringify(thing)
+
+    var hash = 0;
+    if (thing.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < thing.length; i++) {
+        var char = thing.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash).toString(16).toUpperCase()
+  },
+
   clone (obj) {
       return JSON.parse(JSON.stringify(obj))
   },
