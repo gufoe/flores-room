@@ -1,5 +1,6 @@
 // $font-family-sans-serif: bonveno;
 $font-family-sans-serif: dosis;
+// $font-family-sans-serif: cantarell;
 // $font-family-sans-serif: plom;
 // $font-family-sans-serif: sharetech;
 // $font-family-sans-serif: sans-serif;
@@ -7,7 +8,7 @@ $font-size-base: 1rem;
 // html { font-size: .8rem; }
 // body { font-size: 1rem!important; }
 $body-bg: #f8f9fa;
-$primary: #019875;
+$primary: lighten(#019f76, 5%);
 $brand-primary: $primary;
 
 $enable-shadows: false;
@@ -26,7 +27,10 @@ $headings-color: darken($primary, 0%);
 // h1,h2,h3,h4,h5,h6 { letter-spacing: 2px }
 $theme-colors: (
   "primary": $primary,
-  "danger": #f00
+  "danger": #f22,
+  "success": #1b4,
+  "warning": #f70,
+  "info": #09f,
 );
 
 

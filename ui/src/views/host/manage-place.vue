@@ -7,22 +7,20 @@
       <h1 @click="$router.push({name:'manage-place'})">{{ place.name }}</h1>
       <router-view v-if="$route.name != 'manage-place'" :place="place"/>
       <div v-else class="mt-3">
-        <div class="lh-2">
-          You can click
-          <router-link :to="{ name: 'edit-place', params: { id: place.id }}">here</router-link>
-          to edit the information, and
-          <router-link :to="{ name: 'manage-rooms', params: { id: place.id }}">here</router-link>
-          to manage your rooms.
+        <div class="lh-2 my-3">
+          {{ $t(`place_type.${place.type}`) }}
+          -
+          <span v-if="place.is_active" class="text-success">active</span>
+          <span v-else class="text-danger">suspended</span>
+          -
+          {{ place.rooms.filter(r => r.is_active).length }} rooms
         </div>
-        <div class="my-3">
-          <div v-if="!place.is_active" class="text-danger">
-            This place is not active now.
-            <a href="#" @click.prevent="toggleActive">Click here to activate!</a>
-          </div>
-          <div v-else>
-            This place is active!
-            <a href="#" @click.prevent="toggleActive">Click here to suspend.</a>
-          </div>
+        <div class="lh-2 my-3">
+          <button @click="$router.push({ name: 'edit-place', params: { id: place.id }})" class="btn btn-outline-success">Edit Info</button>
+          &nbsp;
+          <button @click="$router.push({ name: 'manage-rooms', params: { id: place.id }})" class="btn btn-outline-info">Edit Rooms</button>
+          &nbsp;
+          <button @click="toggleActive" class="btn btn-outline-warning">{{ place.is_active ? 'Suspend' : 'Activate' }}</button>
         </div>
         <div class="my-3 text-danger" v-if="!place.is_verified">
           This place has not been verified. Please contact us to verify this place.
@@ -66,6 +64,8 @@ export default {
       this.$http.post(`places/${this.place.id}/toggle-active`).then(res => {
         this.place.is_active = res.data.is_active
         if (this.place.user_id == this.$store.user.id) this.$store.refreshUser()
+        document.body.focus()
+        document.body.trigger('click')
       })
     },
   },

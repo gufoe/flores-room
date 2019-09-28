@@ -58,7 +58,9 @@ export default {
   hr { margin: 0; }
   .place-block {
     // font-family: $headings-font-family;
-    border: 2px solid var(--primary-color);
+    border: 2px solid $primary;
+    background: #fff;
+    box-shadow: 0 0 1rem rgba(0,0,0,.2);
     padding: 10px;
     .place-location, .place-rooms  {
       opacity: .8;

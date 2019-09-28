@@ -20,22 +20,18 @@
       <div v-else-if="places.length">
         {{ places.length }} places found
         🙂
-
       </div>
       <div v-else>
         No places found 🥺
-
-        <div class="mt-4 ml-3">
-          <button @click="$router.back()" class="btn btn-outline-danger">Go Back</button>
-        </div>
       </div>
+      <a href="#" @click.prevent="$router.push({ name: 'home' })">Change search</a>
     </div>
     <div v-for="place in places"
     @click="$router.push({ name: 'view-result', params: { id: place.id }, query: $route.query })"
     class="result row">
       <div class="col-5 res-pic"
       v-square
-      :style="place.pics.length && 'background-image: url('+$utils.image_sm(place.pics[0])+')'">
+      :style="place.pics.length && 'background-image: url('+$utils.image_md(place.pics[0])+')'">
       </div>
       <div class="col res-info">
         <div style="font-size: 1.1rem">{{ place.name }}</div>
@@ -106,7 +102,6 @@ export default {
       immediate: true,
       handler (v, o) {
         if (o && JSON.stringify(v) == JSON.stringify(o)) return
-        console.log(JSON.stringify(v) +'\n'+ JSON.stringify(o))
         this.reloadResults()
       }
     },

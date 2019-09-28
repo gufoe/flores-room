@@ -50,8 +50,8 @@ export default {
       bed_type: {
         'single': 'Single',
         'double': 'Double',
-        'single-bunk': 'Single bunk',
-        'double-bunk': 'Double bunk',
+        'single-bunk': 'Bunk',
+        'double-bunk': 'Bunk double',
       },
       bed_price: {
         1: 'Single bed price',

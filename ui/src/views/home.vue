@@ -14,7 +14,7 @@
         bookings <b>easily</b> and with <b>minimal fees</b>.
       </div>
 
-      <button @click="$router.push({ name: 'account' })" class="btn btn-primary my-3">SIGN UP!</button>
+      <button @click="$router.push({ name: 'account' })" class="btn btn-outline-primary my-3">Sign Up!</button>
     </div>
 
 

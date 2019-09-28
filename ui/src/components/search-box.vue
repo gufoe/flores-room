@@ -56,7 +56,7 @@
         <i v-else>Select a location from the list</i>
       </div>
 
-      <button class="btn btn-outline-primary" type="submit" :disabled="!is_search_valid">
+      <button class="btn btn-primary" type="submit" :disabled="!is_search_valid">
         Search!
       </button>
     </form>

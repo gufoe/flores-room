@@ -8,8 +8,9 @@
         <div @click="$router.push({ name: 'home' })" :selected="$route.name == 'home'">
           <span>Home</span>
         </div>
-        <div v-if="$store.user" @click="$router.push({ name: 'account' })" :selected="$route.name == 'account'">
-          <span>Account</span>
+        <div @click="$router.push({ name: 'account' })" :selected="$route.name == 'account'">
+          <span v-if="$store.user">Account</span>
+          <span v-else>Login</span>
         </div>
         <div v-if="$store.user && $store.user.places.length" @click="$router.push({ name: 'manage-places' })" :selected="['manage-places'].includes($route.name)">
           <span>Places</span>
