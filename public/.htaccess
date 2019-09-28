@@ -1,7 +1,6 @@
-<ifModule mod_gzip.c>
-mod_gzip_on Yes
-mod_gzip_dechunk Yes
-</ifModule>
+<IfModule mod_deflate.c>
+	SetOutputFilter DEFLATE
+</IfModule>
 
 
 Options +FollowSymLinks -MultiViews -Indexes
