@@ -10,17 +10,21 @@
     <div v-else>
       <h1 class="nm">Login</h1>
       <br>
-      <br>
       <div v-if="is_loading">
         Loading...
       </div>
       <div v-else>
-        You can login or signup using the button below
-        <br>
-        <br>
+        <div class="mb-4">
+          You can login or signup using the button below
+        </div>
+
         <button @click="login_fb()" class="btn" style="background: #3b5998; color: #fff">
           Login with Facebook
         </button>
+
+        <div class="my-4">
+          Flores Room version <code>{{ $store.ui_version }}</code>
+        </div>
       </div>
     </div>
   </div>
