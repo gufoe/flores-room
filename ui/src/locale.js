@@ -1,5 +1,24 @@
 export default {
   locale: 'en',
+
+  dateTimeFormats: {
+    en: {
+      date: {
+        year: 'numeric', month: 'numeric', day: 'numeric'
+      },
+      datelong: {
+        year: 'numeric', month: 'long', day: 'numeric'
+      },
+      datetime: {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', hour12: false,
+      },
+      time: {
+        hour: 'numeric', minute: 'numeric', second: 'numeric'
+      },
+    },
+  },
+
   messages: {
     en: {
       place_type: {

@@ -70,6 +70,7 @@ export default {
   },
 
   logout () {
+    this.$http.post('logout')
     this.updateToken(null)
     this.updateUser(null)
   }

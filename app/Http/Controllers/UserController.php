@@ -26,11 +26,20 @@ class UserController extends Controller
         ];
     }
 
+    public function logout() {
+        user()->current_session->delete();
+    }
+
 
     public function me(int $uid = null) {
         $u = $uid ? \App\User::find($uid) : user();
         if (!$u) return null;
         $u->places = $u->places()->with('rooms')->get();
         return $u;
+    }
+
+    public function list() {
+        if (!user()->is_admin) abort(403);
+        return \App\User::orderBy('created_at', 'asc')->get();
     }
 }

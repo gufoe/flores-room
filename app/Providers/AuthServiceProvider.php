@@ -29,13 +29,15 @@ class AuthServiceProvider extends ServiceProvider
         Auth::viaRequest('auth-token', function ($request) {
             $token = $request->header('Authorization');
             if (!$token) return null;
-            $user = \App\User::whereHas('sessions', function ($q) use ($token) {
-                $q->where('token', $token)
-                ->where(function($q) {
-                    $q->whereNull('expires_at')->orWhere('expires_at', '<', to_datetime('now'));
-                });
-            })->first();
 
+            $session = \App\Session::whereToken($token)->active()->first();
+            if (!$session) return null;
+
+            $session->extendExpiry();
+
+            $user = $session->user;
+            $user->updateLastSeen();
+            $user->current_session = $session;
             return $user;
         });
     }

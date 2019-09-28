@@ -6,17 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>Flores Room</title>
-    <script type="text/javascript">
-    window.fbAsyncInit = () => {
-      //SDK loaded, initialize it
-      FB.init({
-        appId            : '2189561351345047',
-        autoLogAppEvents : false,
-        xfbml            : false,
-        version          : 'v4.0'
-      })
-    };
-    </script>
+    <script type="text/javascript"> window.fbAsyncInit = () => { window.FB.__ready = true } </script>
     <script src="<%= BASE_URL %>lib/fb.js" charset="utf-8" async></script>
   </head>
   <body class="full-height">

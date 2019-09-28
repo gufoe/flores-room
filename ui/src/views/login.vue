@@ -36,15 +36,23 @@ export default {
 
   mounted () {
     this._int = setInterval(() => {
-      if (window.FB) {
-        clearInterval(this._int)
-        console.log('fb found')
-        window.FB.getLoginStatus(() => {
-          console.log('login status found')
-          this.is_loading = false
-        });
-      }
-    }, 500)
+      if (!window.FB || !window.FB.__ready) return
+
+      console.log('fb found')
+      clearInterval(this._int)
+
+      window.FB.init({
+        appId            : this.$config.fb_key,
+        autoLogAppEvents : false,
+        xfbml            : false,
+        version          : 'v4.0'
+      })
+
+      window.FB.getLoginStatus(() => {
+        console.log('login status found')
+        this.is_loading = false
+      });
+    }, 200)
   },
 
   beforeDestroy () {

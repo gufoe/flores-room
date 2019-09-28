@@ -19,7 +19,9 @@ Route::get('artisan/{pwd}/{command}', function (Request $request, $pwd, $command
 });
 
 Route::post('login', 'UserController@login');
+Route::post('logout', 'UserController@logout');
 Route::get('user', 'UserController@me');
+Route::get('users', 'UserController@list');
 
 Route::get('places/{id?}', 'PlaceController@list');
 Route::post('places/{id}/toggle-active', 'PlaceController@toggleActive');

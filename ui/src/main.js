@@ -27,7 +27,6 @@ axios.interceptors.request.use(config => {
   return config
 })
 axios.interceptors.response.use(res => res, err => {
-  console.log(err)
   window.err = err
   let message = ''
   if (!err.response) {

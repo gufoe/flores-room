@@ -9,6 +9,8 @@
       <br>
       <a href="#" @click.prevent="$router.push({ name: 'manage-places' })">Click here!</a>
     </div>
+
+    <button class="btn btn-outline-danger my-5" @click="$store.logout()">Logout</button>
   </div>
 </template>
 
