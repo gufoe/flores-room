@@ -13,7 +13,7 @@
     </div>
 
     <div class="mb-4">
-      Flores Room version <code>{{ version }}</code>
+      Flores Room version <code>{{ $store.ui_version }}</code>
     </div>
 
     <button class="btn btn-outline-danger mb-5" @click="$store.logout()">Logout</button>
@@ -23,9 +23,7 @@
 <script>
 export default {
   data () {
-    return {
-      version: this.$utils.hash(document.head.innerHTML)
-    }
+    return { }
   }
 }
 </script>

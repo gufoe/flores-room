@@ -1,4 +1,9 @@
+import utils from './utils'
+
+let ui_version = utils.hash(document.head.innerHTML)
+
 export default {
+  ui_version,
   is_ready: false,
   user: null,
   $http: null,
