@@ -15,7 +15,15 @@ import './install-plugins'
 // import './registerServiceWorker'
 import './theme.scss'
 
+
+let current_url = location.href.split('#')[0]
+if (current_url != config.app_url) {
+  location.href = config.app_url
+}
+
+
 Vue.config.productionTip = false
+
 
 
 
