@@ -10,6 +10,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!places || !places.length">
+          <td colspan=4>{{ !places ? 'Loading...' : 'No places found' }}</td>
+        </tr>
         <tr v-for="place in places" :key="place.id">
           <td>
             {{ place.name }}

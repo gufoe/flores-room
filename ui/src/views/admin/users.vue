@@ -9,6 +9,9 @@
         </tr>
       </thead>
       <tbody>
+        <tr v-if="!users || !users.length">
+          <td colspan=3>{{ !users ? 'Loading...' : 'No users found' }}</td>
+        </tr>
         <tr v-for="user in users" :key="user.id">
           <td>
             {{ user.name }}

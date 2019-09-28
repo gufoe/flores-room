@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.5d95cc25d3cbd6bda51ba0bbed24d26f.js"
+  "precache-manifest.db43db8dfdd2b04a8163072579476aad.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "pollz"});
