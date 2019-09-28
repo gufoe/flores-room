@@ -2,7 +2,7 @@
 
 set -e
 
-acp $1
+acp "$1"
 
 
 echo Connecting to remote server...

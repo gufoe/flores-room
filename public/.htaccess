@@ -1,3 +1,9 @@
+<ifModule mod_gzip.c>
+mod_gzip_on Yes
+mod_gzip_dechunk Yes
+</ifModule>
+
+
 Options +FollowSymLinks -MultiViews -Indexes
 
 DirectoryIndex main.php
