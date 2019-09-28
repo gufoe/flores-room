@@ -5,22 +5,22 @@
         <tr>
           <th>Name</th>
           <th>Last Seen</th>
-          <th>Date</th>
         </tr>
       </thead>
       <tbody>
         <tr v-if="!users || !users.length">
-          <td colspan=3>{{ !users ? 'Loading...' : 'No users found' }}</td>
+          <td colspan=2>{{ !users ? 'Loading...' : 'No users found' }}</td>
         </tr>
         <tr v-for="user in users" :key="user.id">
           <td>
             {{ user.name }}
+            <div class="small">{{ $d($utc(user.created_at), 'date') }}</div>
           </td>
           <td>
             {{ $d($utc(user.last_seen), 'datetime') }}
+            <div class="small">{{ user.last_uiv }}</div>
           </td>
           <td>
-            {{ $d($utc(user.created_at), 'date') }}
           </td>
         </tr>
       </tbody>

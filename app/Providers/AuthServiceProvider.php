@@ -33,11 +33,16 @@ class AuthServiceProvider extends ServiceProvider
             $session = \App\Session::whereToken($token)->active()->first();
             if (!$session) return null;
 
-            $session->extendExpiry();
-
             $user = $session->user;
+
+            $uiv = $request->header('X-uiv');
+            if ($session->uiv != $uiv) $session->update([ 'uiv' => $uiv ]);
+            if ($user->last_uiv != $uiv) $user->update([ 'last_uiv' => $uiv ]);
+
             $user->updateLastSeen();
             $user->current_session = $session;
+            $session->extendExpiry();
+
             return $user;
         });
     }

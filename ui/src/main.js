@@ -22,6 +22,7 @@ Vue.config.productionTip = false
 // HTTP service
 axios.defaults.baseURL = config.api_url;
 Vue.prototype.$http = axios
+axios.defaults.headers.common['X-uiv'] = store.ui_version
 axios.interceptors.request.use(config => {
   config.paramsSerializer = params => qs.stringify(params, { arrayFormat: "brackets", encode: false })
   return config

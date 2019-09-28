@@ -70,7 +70,11 @@ export default {
   },
 
   updateToken (token) {
-    this.$http.defaults.headers.common['Authorization'] = token
+    if (!token) {
+      delete this.$http.defaults.headers.common['Authorization']
+    } else {
+      this.$http.defaults.headers.common['Authorization'] = token
+    }
     localStorage.setItem('token', token || '')
   },
 
