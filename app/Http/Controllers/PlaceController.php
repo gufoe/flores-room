@@ -77,7 +77,7 @@ class PlaceController extends Controller
 
             $dates = dates_to_array($av['check_in'], $av['check_out']);
 
-            $q->with(['rooms' => function($q) use ($dates) {
+            $q->ready()->with(['rooms' => function($q) use ($dates) {
                 $q->select()->active();
                 $q->addAvailability($dates);
             }]);
