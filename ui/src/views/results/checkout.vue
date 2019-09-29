@@ -48,7 +48,7 @@
         <login :nested="true"/>
       </div>
       <div v-else class="block-content">
-        <div v-if="location.hostname.match(/\.com$/)" class="py-4">
+        <div v-if="false && location.hostname.match(/\.com$/)" class="py-4">
           Checkout has not been implemented yet
         </div>
         <div v-else-if="!booking" class="py-4">

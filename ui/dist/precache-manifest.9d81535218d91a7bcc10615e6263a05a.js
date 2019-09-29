@@ -68,8 +68,8 @@ self.__precacheManifest = [
     "url": "css/chunk-ef00e4e8.52a4f180.css"
   },
   {
-    "revision": "09499a71ea3d3ca1696e",
-    "url": "js/app.c0fa8d28.js"
+    "revision": "f28a524177c00eb8ee94",
+    "url": "js/app.49125600.js"
   },
   {
     "revision": "df3de0ea096099612ce2",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
     "url": "fonts/BungeeHairline-Regular.ttf"
   },
   {
-    "revision": "6a43035a2ef7f85881d3fa5a6eb88ebc",
+    "revision": "90c09bcfd56d6c953277224595d69c14",
     "url": "index.html"
   },
   {
@@ -136,7 +136,7 @@ self.__precacheManifest = [
     "url": "css/chunk-24826294.0e433876.css"
   },
   {
-    "revision": "09499a71ea3d3ca1696e",
+    "revision": "f28a524177c00eb8ee94",
     "url": "css/app.66b28897.css"
   }
 ];
