@@ -24,6 +24,10 @@ class User extends Authenticatable {
         return $this->hasMany(Place::class);
     }
 
+    public function bookings() {
+        return $this->hasMany(Booking::class);
+    }
+
     public static function loginOrSignup(string $driver, string $id = null, string $token = null) {
         $api_user = \Socialite::driver($driver)->userFromToken($token);
 

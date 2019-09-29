@@ -1,6 +1,14 @@
 <template lang="html">
   <loading-screen v-if="!places">
-    Loading places...
+    <div v-if="is_error">
+      Cannot load results
+      <br>
+      <br>
+      <button class="btn btn-outline-warning" @click="reloadResults">Try again</button>
+    </div>
+    <div v-else>
+      Loading places...
+    </div>
   </loading-screen>
   <div v-else-if="$route.name == 'view-result'">
     <div v-if="!selected_place" class="p-5 text-center">
@@ -59,6 +67,7 @@ export default {
   data () {
     return {
       places: null,
+      is_error: false,
     }
   },
 
@@ -91,8 +100,15 @@ export default {
         order_by: 'distance',
       }
 
+      this.is_error = false
       this.$http.get('places', { params }).then(res => {
         this.places = res.data
+      }, err => {
+        if (err.response && err.response.status == 400) {
+          this.$router.push({ name: 'home' })
+        } else {
+          this.is_error = true
+        }
       })
     },
   },

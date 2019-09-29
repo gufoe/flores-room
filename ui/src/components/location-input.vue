@@ -104,7 +104,7 @@ export default {
 <style lang="scss">
 .location-input {
   position: relative;
-  z-index: 2000;
+  z-index: 500;
   .input-group input {
     margin: 0 0;
   }

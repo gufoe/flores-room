@@ -42,7 +42,7 @@
             input-class="form-control"
             :first-day-of-week="1"
             format="DD MMM YYYY"
-            :not-before="$utc(form.check_in)"
+            :not-before="$utc(form.check_in).nextDay()"
             :value-type="{
               value2date: v => $utc(v),
               date2value: d => d.toStdLocal(),

@@ -1,6 +1,6 @@
 <template lang="html">
   <div style="height: 100%; width: 100%; display: flex; flex-direction: column" v-if="is_ready">
-    <div class="small mt-2">
+    <div v-if="!readonly" class="small mt-2">
       Search the name of the city and then click on the address
     </div>
     <div class="full-height">
@@ -12,7 +12,7 @@
           :lat-lng="{lat, lng:lon}"
           />
         <!-- </l-layer-group> -->
-        <l-geosearch ref="geosearch" :options="geosearch_options" ></l-geosearch>
+        <l-geosearch v-if="!readonly" ref="geosearch" :options="geosearch_options" ></l-geosearch>
       </l-map>
     </div>
   </div>
@@ -52,6 +52,10 @@ export default {
   },
 
   props: {
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     lat: {
       type: Number,
       required: false,
@@ -91,7 +95,9 @@ export default {
         // this.marker = LMarker(pos).addTo(this.map)
         this.map.setView(pos, 18)
 
-        this.$refs.map.$el.querySelector('.leaflet-control-geosearch.bar form').addEventListener('click', e => e.stopPropagation())
+        // Bugfix: stop bar click propagation
+        let el = this.$refs.map.$el.querySelector('.leaflet-control-geosearch.bar form')
+        if (el) el.addEventListener('click', e => e.stopPropagation())
       })
     }, 100)
   },
@@ -104,7 +110,7 @@ export default {
 
   methods: {
     mapClick (loc) {
-      console.log(loc)
+      if (this.readonly) return
       window.x = this.map
       // if (this.marker) {
       //   this.marker.remove()

@@ -12,6 +12,6 @@ export default {
 <style lang="scss">
 .cp-loading {
   font-size: 1.1rem;
-  opacity: .5;
+  color: #888;
 }
 </style>

@@ -80,6 +80,7 @@ class PlaceController extends Controller
             $q->ready()->with(['rooms' => function($q) use ($dates) {
                 $q->select()->active();
                 $q->addAvailability($dates);
+                $q->having('availability', '>', 0);
             }]);
         } else {
             $q->with('rooms');

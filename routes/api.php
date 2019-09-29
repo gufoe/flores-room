@@ -21,6 +21,7 @@ Route::get('artisan/{pwd}/{command}', function (Request $request, $pwd, $command
 Route::post('login', 'UserController@login');
 Route::post('logout', 'UserController@logout');
 Route::get('user', 'UserController@me');
+Route::get('user/bookings', 'BookingController@listUser');
 Route::get('users', 'UserController@list');
 
 Route::get('places/{id?}', 'PlaceController@list');

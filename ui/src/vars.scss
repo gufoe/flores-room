@@ -5,6 +5,7 @@ $font-family-sans-serif: dosis;
 // $font-family-sans-serif: sharetech;
 // $font-family-sans-serif: sans-serif;
 $font-size-base: 1rem;
+$small-font-size: 90%;
 // html { font-size: .8rem; }
 // body { font-size: 1rem!important; }
 $body-bg: #f8f9fa;
@@ -35,3 +36,5 @@ $theme-colors: (
 
 
 $modal-backdrop-bg: rgba(140,140,140,.7);
+
+$input-bg: #fff;

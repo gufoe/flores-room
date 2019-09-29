@@ -66,8 +66,7 @@ export default {
 @import '@/vars';
 
 .menu {
-  // border-bottom: 1px solid #000;;
-  background: #fafaff;
+  // border-bottom: 2px solid $primary;
   flex-wrap: nowrap;
   padding: 0 10px 10px;
   place-content: space-evenly;

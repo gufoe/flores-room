@@ -19,7 +19,7 @@ class BookingController extends Controller
         $data = [
             'place_id' => request('place_id'),
             'price' => request('total'),
-            'code' => str_random(6),
+            'code' => mb_strtoupper(str_random(6)),
             'check_in' => request('check_in'),
             'check_out' => request('check_out'),
             'is_paid' => 1,
@@ -38,7 +38,7 @@ class BookingController extends Controller
         if (!$dates || $data['check_in'] < to_date('now')) {
             abort(400, 'Invalid dates');
         }
-        $b = \App\Booking::create($data);
+        $b = user()->bookings()->create($data);
 
         foreach (request('bookings') as $rid => $orders) {
             $room = $b->place->rooms()
@@ -74,10 +74,20 @@ class BookingController extends Controller
             $b->units()->create($data);
         }
 
-        if ($b->units()->sum('price') != $b->price) {
+        if ($b->calcTotal() != $b->price) {
             abort(400, 'The price has changed and thus the booking has not been made. Please refresh the page.');
         }
 
         \DB::commit();
+
+        return $b;
+    }
+
+    public function listUser() {
+        return user()->bookings()
+            ->with('place')
+            ->with('units.room')
+            ->orderBy('check_in', 'desc')
+            ->get();
     }
 }

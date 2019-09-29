@@ -20,14 +20,24 @@
       <div class="block-title">
         <h4 class="nm">Private Rooms:</h4>
       </div>
-      <room v-for="room in private_rooms" :key="room.id" :room="room" :booking="bookings[room.id]" class="block-content"/>
+      <room v-for="room in private_rooms"
+      :key="room.id"
+      :room="room"
+      :booking="bookings[room.id]"
+      :places_left="filters.n - (booking ? booking.people : 0)"
+      class="block-content"/>
     </div>
 
     <div v-if="(dorms = place.rooms.filter(p => p.is_dorm)).length" class="block-primary mb-4">
       <div class="block-title">
         <h4 class="nm">Dorms:</h4>
       </div>
-      <room v-for="room in dorms" :key="room.id" :room="room" :booking="bookings[room.id]" class="block-content"/>
+      <room v-for="room in dorms"
+      :key="room.id"
+      :room="room"
+      :booking="bookings[room.id]"
+      :places_left="filters.n - (booking ? booking.people : 0)"
+      class="block-content"/>
     </div>
 
     <div class="block-info checkout mb-5">
@@ -47,10 +57,21 @@
         <div v-else>
           <div class="row mb-2">
             <div class="col">
+              Price per night: <b><price :price="booking.total_per_night"/></b>
+              <br>
+              Check in: <b>{{ $d($utc(booking.check_in), 'date') }}</b>
+              <br>
+              Check out: <b>{{ $d($utc(booking.check_out), 'date') }}</b>
+              <br>
+              Nights: <b>{{ booking.nights }}</b>
+              <br>
               Total price: <b><price :price="booking.total"/></b>
             </div>
             <div class="col">
-              People: {{ booking.people }}
+              People: <b>{{ filters.n }}</b>
+              <br>
+              <span :class="booking.people > filters.n && 'text-danger'">Spaces: {{ booking.people }}</span>
+              <br>
             </div>
           </div>
 
@@ -110,6 +131,7 @@ export default {
   computed: {
     booking () {
       let counts = {}
+      let nights = (this.$utc(this.filters.check_out).getTime() - this.$utc(this.filters.check_in).getTime())/86400000
       let people = 0
       let total = 0
       let bookings = this.bookings
@@ -128,13 +150,18 @@ export default {
         }
       }
       if (!total) return
+      let total_per_night = total
+      total*= nights
+
       return {
         place_id: this.place.id,
         check_in: this.filters.check_in,
         check_out: this.filters.check_out,
-        total,
         counts,
         people,
+        total_per_night,
+        total,
+        nights,
         bookings,
       }
     }
@@ -143,7 +170,7 @@ export default {
   methods: {
     checkout () {
       this.$http.post('bookings', this.booking).then(res => {
-        console.log('Fatto!', res)
+        this.$router.push({ name: 'booking', params: { id: res.data.id } })
       })
     },
   },

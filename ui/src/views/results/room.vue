@@ -1,15 +1,17 @@
 <template lang="html">
   <div class="book-room">
-    <div class="row no-gutters">
+    <div class="row gutters-1">
       <div class="col-6 room-perks mb-1">
-        Features:
-        <div v-for="perk in room.perks" :key="perk">
+        <div class="mb-1">Features:</div>
+        <div v-for="perk in room.perks" :key="perk"
+        class="element small">
           ✓ {{ $t(`room_perk.${perk}`) }}
         </div>
       </div>
       <div class="col-6 room-shape">
-        Room:
-        <div v-for="(count, type) in room.shape" :key="type" style="text-transform: lowercase">
+        <div class="mb-1">Composition:</div>
+        <div v-for="(count, type) in room.shape" :key="type"
+        class="element small" style="text-transform: lowercase">
           <i :class="`bed ${type}`" style="font-size: 1.2rem;"></i>
           &nbsp;
           {{ count }}
@@ -17,32 +19,47 @@
           bed
         </div>
       </div>
-      <div class="col-12">
-        <div class="row">
+      <div class="col-12 mt-2 py-1" style="border-top: 1px solid #ddd">
+        <div class="row align-center gutters-1 mt-3 mb-2" v-if="!room.is_dorm">
+          <div class="col text-right mr-2">
+            Total price:
+            <price :price="room.price"/>
+          </div>
+          <div class="col">
+            <button v-if="!booking['room']" class="btn btn-primary" @click="booking['room'] = !booking['room']">
+              Select
+            </button>
+            <button v-else class="btn btn-warning" @click="booking['room'] = !booking['room']">
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div class="row gutters-1" v-else>
           <div v-for="size in [1,2]" :key="size"
-          v-if="(beds = room[`av_b${size}`]) && (price = room[`b${size}_price`])"
-          class="col text-center ml-1">
+          v-if="((tot_beds = room[`b${size}_count`]) && (price = room[`b${size}_price`])) && ((av_beds = room[`av_b${size}`]) || 1)"
+          class="col">
             <div>
-              <div class="row no-gutters align-center">
-                <i style="font-size: 2rem; margin-right: .5rem" :class="{bed: true, single: size==1, double: size==2 }"></i>
-                <div class="col text-left">
-                  <span>
-                    <price :price="price"/> each
-                  </span>
-                  <div class="small">{{ beds }} available</div>
+              <span>
+                {{ $t('bed_type.'+(size==1?'single':'double')) }} bed
+                for
+                <price :price="price" class="text-info"/>
+              </span>
+              <div class="small faded mb-1">{{ av_beds }}/{{ tot_beds }} available</div>
+              <div v-if="av_beds" class="row no-gutters">
+                <div class="col-8">
+                  <number-input v-model="booking[size]" :max="av_beds"/>
                 </div>
-              </div>
-              <div>
+                <div class="col">
+                  <div v-if="booking[size]">
+                    <price :price="booking[size] * room[`b${size}_price`]" class="text-info"/>
+                  </div>
+                </div>
                 <!-- <input
                 :value="booking[size]"
                 @input="booking[size] = $event.target.value*1"
                 class="custom-range" type="range"
-                :min="0" :max="beds"
+                :min="0" :max="av_beds"
                 style="width: 100%"/> -->
-              </div>
-              <div v-if="booking[size]">
-                {{ booking[size] }}<span class="small">x</span> =
-                <b><price :price="booking[size] * room[`b${size}_price`]"/></b>
               </div>
             </div>
           </div>
@@ -63,6 +80,10 @@ export default {
       type: Object,
       required: true,
     },
+    places_left: {
+      type: Number,
+      required: true,
+    },
   },
 }
 </script>
@@ -71,9 +92,8 @@ export default {
 @import '@/vars';
 
 .book-room {
-  .room-perks div, .room-shape div {
-    font-size: .9rem;
-    opacity: .6;
+  .room-perks .element, .room-shape .element {
+    color: #666;
   }
 }
 </style>

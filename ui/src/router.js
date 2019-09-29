@@ -16,6 +16,19 @@ const router = new Router({
       component: Home,
     },
     {
+      path: '/bookings/',
+      name: 'bookings',
+      component: () => import('./views/bookings/home.vue'),
+      meta: { auth: true, admin: true },
+      children: [
+        {
+          path: ':id',
+          name: 'booking',
+          meta: { auth: true, admin: true },
+        }
+      ]
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('./views/admin/home.vue'),
