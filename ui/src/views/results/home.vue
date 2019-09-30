@@ -34,7 +34,7 @@
       </div>
       <a href="#" @click.prevent="$router.push({ name: 'home' })">Change search</a>
     </div>
-    <div v-for="place in places"
+    <div v-for="place in places" :key="place.id"
     @click="$router.push({ name: 'view-result', params: { id: place.id }, query: $route.query })"
     class="result row">
       <div class="col-5 res-pic"
@@ -45,13 +45,13 @@
         <div style="font-size: 1.1rem">{{ place.name }}</div>
         <div class="small" style="opacity: .7">
           {{ place.loc_city }},
-          {{ (place.distance || Math.random() * 5).toFixed(1) }} km</span>
+          {{ (place.distance || Math.random() * 5).toFixed(1) }} km
           <div>Availability: {{ place.rooms.reduce((a, r) => a+r.availability, 0) }} places</div>
           <br>
           <!-- {{ place.rooms.map(r => r.availability).join(', ') }} -->
         </div>
       </div>
-      <b class="res-price">{{ 90+Math.floor(Math.random()* 60) }}<span style="font-size: 70%">.000 ₹</span></b>
+      <b class="res-price"><price :price="90+Math.floor(Math.random()* 60)*1000" :extended="true"/></b>
     </div>
   </div>
 </template>

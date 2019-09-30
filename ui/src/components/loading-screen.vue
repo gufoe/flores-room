@@ -13,5 +13,6 @@ export default {
 .cp-loading {
   font-size: 1.1rem;
   color: #888;
+  padding: 5rem 1rem;
 }
 </style>

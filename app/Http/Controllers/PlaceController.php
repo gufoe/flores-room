@@ -89,7 +89,9 @@ class PlaceController extends Controller
         if (request('with_bookings')) {
             $user_places = user()->places()->pluck('id')->all();
             $q->with(['bookings' => function($q) use ($user_places) {
-                $q->whereIn('place_id', $user_places);
+                $q->with(['user', 'units', 'units.room'])
+                ->orderBy('check_in', 'asc')
+                ->whereIn('place_id', $user_places);
             }]);
         }
 

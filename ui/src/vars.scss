@@ -1,15 +1,19 @@
-// $font-family-sans-serif: bonveno;
-$font-family-sans-serif: dosis;
-// $font-family-sans-serif: cantarell;
-// $font-family-sans-serif: plom;
-// $font-family-sans-serif: sharetech;
-// $font-family-sans-serif: sans-serif;
+
+
+
 $font-size-base: 1rem;
 $small-font-size: 90%;
 // html { font-size: .8rem; }
 // body { font-size: 1rem!important; }
 $body-bg: #f8f9fa;
-$primary: lighten(#019f76, 5%);
+$primary: darken(#aaf, 5%);
+$danger: #f22;
+$success: #1b4;
+$warning: #f70;
+$info: #09f;
+$dark: #343a40;
+
+// $primary: lighten(#343a40, 10%);
 $brand-primary: $primary;
 
 $enable-shadows: false;
@@ -22,19 +26,29 @@ $input-focus-border-color: lighten($primary, 2%);
 $input-btn-padding-y:         .275rem !default;
 $input-btn-padding-x:         .55rem !default;
 
-$headings-font-family: dosis;
-$headings-font-weight: bold;
-$headings-color: darken($primary, 0%);
 // h1,h2,h3,h4,h5,h6 { letter-spacing: 2px }
 $theme-colors: (
   "primary": $primary,
-  "danger": #f22,
-  "success": #1b4,
-  "warning": #f70,
-  "info": #09f,
+  "danger": $danger,
+  "success": $success,
+  "warning": $warning,
+  "info": $info,
+  "dark": $dark,
 );
 
 
 $modal-backdrop-bg: rgba(140,140,140,.7);
 
 $input-bg: #fff;
+
+
+// $font-family-sans-serif: bonveno;
+$font-family-sans-serif: dosis;
+// $font-family-sans-serif: cantarell;
+// $font-family-sans-serif: plom;
+// $font-family-sans-serif: sharetech;
+// $font-family-sans-serif: sans-serif;
+
+$headings-font-family: cantarell;
+$headings-font-weight: normal;
+$headings-color: darken($primary, 0%);

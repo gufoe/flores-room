@@ -1,66 +1,69 @@
 <template lang="html">
-  <div class="search-box">
-    <form @submit.prevent="search">
-      <h3 class="mb-2">Your Search</h3>
-      <div class="text-left row no-gutters">
-        <div class="col">
-          Location
-          <location-input v-model="form.display_name"
-          :lat.sync="form.lat"
-          :lon.sync="form.lon"
-          :bounding-box.sync="form.bounding_box"
-          />
-        </div>
-        <div class="col-3 pl-3">
-          People
-          <input v-model="form.n" type="number" min="0" class="form-control">
-        </div>
-      </div>
-      <div class="text-left">
-        <!-- <h4>Your Dates:</h4> -->
-        <div class="row no-gutters" style="">
-          <div class="col-6 pr-2">
-            <span>Check in</span>
-            <date-picker v-model="form.check_in"
-            :lang="$i18n.locale"
-            style="width: 100%"
-            input-class="form-control"
-            :first-day-of-week="1"
-            format="DD MMM YYYY"
-            :not-before="new Date()"
-            :value-type="{
-              value2date: v => $utc(v),
-              date2value: d => d.toStdLocal(),
-              }"/>
+  <div class="search-box block-primary">
+    <div class="block-title">
+      <h3 class="nm">Your Search</h3>
+    </div>
+    <div class="block-content">
+      <form @submit.prevent="search" class="my-3">
+        <div class="text-left row no-gutters">
+          <div class="col">
+            Location
+            <location-input v-model="form.display_name"
+            :lat.sync="form.lat"
+            :lon.sync="form.lon"
+            :bounding-box.sync="form.bounding_box"
+            />
           </div>
-          <div class="col-6 pl-2">
-            <span>Check out</span>
-            <date-picker v-model="form.check_out"
-            ref="checkout"
-            :lang="$i18n.locale"
-            style="width: 100%"
-            input-class="form-control"
-            :first-day-of-week="1"
-            format="DD MMM YYYY"
-            :not-before="$utc(form.check_in).nextDay()"
-            :value-type="{
-              value2date: v => $utc(v),
-              date2value: d => d.toStdLocal(),
-              }"/>
+          <div class="col-3 pl-3">
+            People
+            <input v-model="form.n" type="number" min="0" class="form-control">
           </div>
         </div>
-      </div>
+        <div class="text-left">
+          <!-- <h4>Your Dates:</h4> -->
+          <div class="row no-gutters" style="">
+            <div class="col-6 pr-2">
+              <span>Check in</span>
+              <date-picker v-model="form.check_in"
+              :lang="$i18n.locale"
+              style="width: 100%"
+              input-class="form-control"
+              :first-day-of-week="1"
+              format="DD MMM YYYY"
+              :not-before="new Date()"
+              :value-type="{
+                value2date: v => $utc(v),
+                date2value: d => d.toStdLocal(),
+                }"/>
+            </div>
+            <div class="col-6 pl-2">
+              <span>Check out</span>
+              <date-picker v-model="form.check_out"
+              ref="checkout"
+              :lang="$i18n.locale"
+              style="width: 100%"
+              input-class="form-control"
+              :first-day-of-week="1"
+              format="DD MMM YYYY"
+              :not-before="$utc(form.check_in).nextDay()"
+              :value-type="{
+                value2date: v => $utc(v),
+                date2value: d => d.toStdLocal(),
+                }"/>
+            </div>
+          </div>
+        </div>
 
-      <div class="my-2">
-        <i v-if="form.lat">&nbsp;</i>
-        <i v-else>Select a location from the list</i>
-      </div>
+        <div class="my-2">
+          <i v-if="form.lat">&nbsp;</i>
+          <i v-else>Select a location from the list</i>
+        </div>
 
-      <button class="btn btn-primary" type="submit" :disabled="!is_search_valid">
-        Search!
-      </button>
-    </form>
-
+        <button class="btn btn-primary" type="submit" :disabled="!is_search_valid">
+          Search!
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -128,11 +131,5 @@ export default {
 
 <style lang="scss">
 .search-box {
-  margin: 0 -1rem;
-  padding: 1rem 1rem;
-  // border-radius: .5rem;
-  background: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 1.5rem rgba(0,0,0,.2);
 }
 </style>

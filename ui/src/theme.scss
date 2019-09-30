@@ -336,6 +336,9 @@ fieldset.form-group {
     // margin: 1rem .2rem;
     border-radius: 4px;
     box-shadow: 0 0 1rem rgba(0,0,0,.2);
+    background: #fff;
+    overflow: auto;
+    overflow-x: hidden;
     .block-title {
       background: $value;
       * { color: #fff; }
@@ -347,6 +350,17 @@ fieldset.form-group {
       &:not(:last-child) {
         border-bottom: 2px solid $value;
       }
+    }
+
+    b, a {
+      color: $value;
+    }
+  }
+}
+@each $color, $value in $theme-colors {
+  .colors-#{$color} {
+    b, a {
+      color: $value;
     }
   }
 }

@@ -10,7 +10,7 @@
       <div v-else-if="!bookings.length" class="block-content">
         You have no bookings yet
       </div>
-      <div v-for="booking in bookings" class="block-content">
+      <div v-for="booking in bookings" :key="booking.id" class="block-content">
         <div class="row">
           <div class="col">
             <h5 class="nm text-info">{{ booking.place.name }}</h5>
@@ -60,8 +60,9 @@ export default {
       let id = this.$route.params.id
       if (!id || !this.bookings) return null
       let b = this.bookings.find(b => b.id == id)
-      if (!b) this.$router.replace({ name: 'bookings' })
-      else return b
+      if (b) return b
+      this.$router.replace({ name: 'bookings' })
+      return null
     }
   },
 

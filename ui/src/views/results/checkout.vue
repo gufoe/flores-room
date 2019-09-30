@@ -1,21 +1,5 @@
 <template lang="html">
   <div v-if="filters" class="page-checkout">
-    <!-- <div class="book-header">
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="m-0">Booking</h3>
-        </div>
-        <div class="col text-center">
-          {{ filters.n }} people
-        </div>
-        <div class="col text-center">
-          {{ $d($utc(filters.check_in)) }}
-          <br>
-          {{ $d($utc(filters.check_out)) }}
-        </div>
-      </div>
-    </div> -->
-
     <div v-if="(private_rooms = place.rooms.filter(p => !p.is_dorm)).length" class="block-primary mb-4">
       <div class="block-title">
         <h4 class="nm">Private Rooms:</h4>
@@ -24,7 +8,7 @@
       :key="room.id"
       :room="room"
       :booking="bookings[room.id]"
-      :places_left="filters.n - (booking ? booking.people : 0)"
+      :places_left="filters.n - (booking ? booking.spaces : 0)"
       class="block-content"/>
     </div>
 
@@ -36,7 +20,7 @@
       :key="room.id"
       :room="room"
       :booking="bookings[room.id]"
-      :places_left="filters.n - (booking ? booking.people : 0)"
+      :places_left="filters.n - (booking ? booking.spaces : 0)"
       class="block-content"/>
     </div>
 
@@ -47,34 +31,57 @@
       <div v-if="!$store.user" class="block-content">
         <login :nested="true"/>
       </div>
-      <div v-else class="block-content">
-        <div v-if="false && location.hostname.match(/\.com$/)" class="py-4">
-          Checkout has not been implemented yet
+      <div v-if="false && location.hostname.match(/\.com$/)" class="block-content py-4">
+        Checkout has not been implemented yet
+      </div>
+      <div v-else-if="!booking" class="block-content py-4">
+        Select the beds/rooms you want
+      </div>
+      <template v-else>
+        <div style="margin: 0 -1px">
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>People:</td>
+                <td style="width: 100%">
+                  <b>{{ booking.guest_number }}</b>
+                </td>
+              </tr>
+              <tr>
+                <td>Nights:</td>
+                <td>
+                  <b>{{ booking.nights }}</b>
+                </td>
+              </tr>
+              <tr>
+                <td style="white-space: pre">Check in:</td>
+                <td>
+                  <b>{{ $d($utc(booking.check_in), 'date') }}</b>
+                </td>
+              </tr>
+              <tr>
+                <td style="white-space: pre">Check out:</td>
+                <td>
+                  <b>{{ $d($utc(booking.check_out), 'date') }}</b>
+                </td>
+              </tr>
+              <tr>
+                <td style="white-space: pre">Price per night:</td>
+                <td>
+                  <b><price :price="booking.total_per_night"/></b>
+                </td>
+              </tr>
+              <tr>
+                <td>Total price:</td>
+                <td>
+                  <b><price :price="booking.total"/></b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div v-else-if="!booking" class="py-4">
-          Select the beds/rooms you want
-        </div>
-        <div v-else>
-          <div class="row mb-2">
-            <div class="col">
-              Price per night: <b><price :price="booking.total_per_night"/></b>
-              <br>
-              Check in: <b>{{ $d($utc(booking.check_in), 'date') }}</b>
-              <br>
-              Check out: <b>{{ $d($utc(booking.check_out), 'date') }}</b>
-              <br>
-              Nights: <b>{{ booking.nights }}</b>
-              <br>
-              Total price: <b><price :price="booking.total"/></b>
-            </div>
-            <div class="col">
-              People: <b>{{ filters.n }}</b>
-              <br>
-              <span :class="booking.people > filters.n && 'text-danger'">Spaces: {{ booking.people }}</span>
-              <br>
-            </div>
-          </div>
 
+        <div class="block-content">
           <div class="my-4">
             Payment method:
             <select class="form-control">
@@ -93,7 +100,7 @@
             <button class="btn btn-info" @click="checkout">Checkout</button>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -132,7 +139,7 @@ export default {
     booking () {
       let counts = {}
       let nights = (this.$utc(this.filters.check_out).getTime() - this.$utc(this.filters.check_in).getTime())/86400000
-      let people = 0
+      let spaces = 0
       let total = 0
       let bookings = this.bookings
       for (let rid in bookings) {
@@ -144,8 +151,8 @@ export default {
           if (type == 'room') total+= room.price * num
           else total+= room[`b${type}_price`] * num
 
-          if (type == 'room') people+= num * (room.b1_count + room.b2_count*2)
-          else people+= num * type
+          if (type == 'room') spaces+= num * (room.b1_count + room.b2_count*2)
+          else spaces+= num * type
 
         }
       }
@@ -158,7 +165,8 @@ export default {
         check_in: this.filters.check_in,
         check_out: this.filters.check_out,
         counts,
-        people,
+        spaces,
+        guest_number: this.filters.n,
         total_per_night,
         total,
         nights,

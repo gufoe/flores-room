@@ -1,6 +1,11 @@
 <template lang="html">
-  <div class="page-place-form mx-2" v-if="form">
-    <h1>{{ form.id ? 'Edit' : 'Create' }} Place</h1>
+  <loading-screen v-if="!form">
+    Loading...
+  </loading-screen>
+  <div v-else class="page-place-form mx-2">
+    <div class="text-center">
+      <h2>{{ form.id ? 'Edit' : 'Create' }} Place</h2>
+    </div>
     <form @submit.prevent="save">
       <fieldset class="form-group">
         <legend class="legend">Basic Info</legend>

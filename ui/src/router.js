@@ -53,11 +53,23 @@ const router = new Router({
       meta: { auth: true },
     },
     {
+      path: '/places/create',
+      name: 'create-place',
+      component: () => import('./views/host/edit-place.vue'),
+      meta: { auth: true },
+    },
+    {
       path: '/places/:id/manage',
       name: 'manage-place',
       component: () => import('./views/host/manage-place.vue'),
       meta: { auth: true },
       children: [
+        {
+          path: 'edit',
+          name: 'edit-place',
+          component: () => import('./views/host/edit-place.vue'),
+          meta: { auth: true },
+        },
         {
           path: 'rooms',
           name: 'manage-rooms',
@@ -71,12 +83,6 @@ const router = new Router({
           meta: { auth: true },
         },
       ]
-    },
-    {
-      path: '/places/:id?/edit',
-      name: 'edit-place',
-      component: () => import('./views/host/edit-place.vue'),
-      meta: { auth: true },
     },
     {
       path: '/results/',

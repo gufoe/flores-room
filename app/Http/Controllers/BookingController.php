@@ -19,6 +19,7 @@ class BookingController extends Controller
         $data = [
             'place_id' => request('place_id'),
             'price' => request('total'),
+            'guest_number' => request('guest_number'),
             'code' => mb_strtoupper(str_random(6)),
             'check_in' => request('check_in'),
             'check_out' => request('check_out'),

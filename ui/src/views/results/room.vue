@@ -23,13 +23,13 @@
         <div class="row align-center gutters-1 mt-3 mb-2" v-if="!room.is_dorm">
           <div class="col text-right mr-2">
             Total price:
-            <price :price="room.price"/>
+            <b><price :price="room.price"/></b>
           </div>
           <div class="col">
             <button v-if="!booking['room']" class="btn btn-primary" @click="booking['room'] = !booking['room']">
               Select
             </button>
-            <button v-else class="btn btn-warning" @click="booking['room'] = !booking['room']">
+            <button v-else class="btn btn-danger" @click="booking['room'] = !booking['room']">
               Cancel
             </button>
           </div>
@@ -42,16 +42,14 @@
               <span>
                 {{ $t('bed_type.'+(size==1?'single':'double')) }} bed
                 for
-                <price :price="price" class="text-info"/>
+                <b><price :price="price"/></b>
               </span>
               <div class="small faded mb-1">{{ av_beds }}/{{ tot_beds }} available</div>
-              <div v-if="av_beds" class="row no-gutters">
-                <div class="col-8">
-                  <number-input v-model="booking[size]" :max="av_beds"/>
-                </div>
+              <div v-if="av_beds" class="row no-gutters align-center">
+                <div><number-input v-model="booking[size]" :max="av_beds"/></div>
                 <div class="col">
-                  <div v-if="booking[size]">
-                    <price :price="booking[size] * room[`b${size}_price`]" class="text-info"/>
+                  <div v-if="booking[size]" class="ml-2">
+                    <b><price :price="booking[size] * room[`b${size}_price`]"/></b>
                   </div>
                 </div>
                 <!-- <input

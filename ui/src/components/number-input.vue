@@ -79,7 +79,7 @@ export default {
       padding: 0 0;
     }
     .btn, .form-control {
-      height: 1.7rem;
+      height: 2rem;
     }
     .btn {
       padding: 0rem .5rem .3rem;

@@ -34,7 +34,7 @@
       </template>
       <br>
       <br>
-      <button @click="$router.push({ name: 'edit-place' })" class="btn btn-primary">
+      <button @click="$router.push({ name: 'create-place' })" class="btn btn-primary">
         Add a new place
       </button>
     </div>

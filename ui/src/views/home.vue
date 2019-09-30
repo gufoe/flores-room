@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="page-padded text-center">
+  <div class="text-center m-2">
     <h4 class="m-0">Welcome to</h4>
     <h1 class="m-0">Flores Room</h1>
-    <i>Your finest cheapest room</i>
+    <div class="mt-1">Your finest cheapest room</div>
 
     <div class="my-4">
         <search-box/>

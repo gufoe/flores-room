@@ -11,7 +11,7 @@ export default {
     },
     extended: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 }

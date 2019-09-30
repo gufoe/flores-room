@@ -1,8 +1,10 @@
 <template lang="html">
-  <div class="">
-    <h3>Rooms</h3>
-    <div class="lh-2">
-      You have {{ rooms.length }} rooms.
+  <div class="mx-2">
+    <div class="text-center">
+      <h2>Rooms</h2>
+      <div class="lh-2">
+        You have {{ rooms.length }} rooms.
+      </div>
     </div>
 
     <template v-for="room in rooms">
