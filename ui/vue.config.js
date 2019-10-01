@@ -20,6 +20,6 @@ module.exports = {
   publicPath: './',
 
   pwa: {
-    themeColor: '#ffffff',
+    themeColor: '#9191ff',
   }
 };

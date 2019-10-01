@@ -20,12 +20,12 @@ self.__precacheManifest = [
     "url": "svg/double.svg"
   },
   {
-    "revision": "5482b12837deef970e4f2625444f7004",
-    "url": "svg/double-bunk.svg"
-  },
-  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "robots.txt"
+  },
+  {
+    "revision": "5482b12837deef970e4f2625444f7004",
+    "url": "svg/double-bunk.svg"
   },
   {
     "revision": "6f4dcd86fd50fe2a155c",
@@ -80,7 +80,7 @@ self.__precacheManifest = [
     "url": "fonts/BungeeHairline-Regular.ttf"
   },
   {
-    "revision": "a5d2343e734d3e72ddc2b3f0f0a0e540",
+    "revision": "3be94bc41d3b7a2652b13b20776b4db4",
     "url": "index.html"
   },
   {
