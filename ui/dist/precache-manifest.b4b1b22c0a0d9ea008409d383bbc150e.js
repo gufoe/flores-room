@@ -12,12 +12,12 @@ self.__precacheManifest = [
     "url": "svg/single.svg"
   },
   {
-    "revision": "01a8b0c694e60ed5f3aa4bd4edb1013b",
-    "url": "svg/single-bunk.svg"
-  },
-  {
     "revision": "15d03b207c345be70cdba7b9862c1509",
     "url": "svg/double.svg"
+  },
+  {
+    "revision": "01a8b0c694e60ed5f3aa4bd4edb1013b",
+    "url": "svg/single-bunk.svg"
   },
   {
     "revision": "5482b12837deef970e4f2625444f7004",
