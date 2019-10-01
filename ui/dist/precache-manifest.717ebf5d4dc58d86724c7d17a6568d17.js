@@ -80,7 +80,7 @@ self.__precacheManifest = [
     "url": "fonts/BungeeHairline-Regular.ttf"
   },
   {
-    "revision": "8b134de0f623ad49b567eb0c463067d1",
+    "revision": "a5d2343e734d3e72ddc2b3f0f0a0e540",
     "url": "index.html"
   },
   {
@@ -100,8 +100,8 @@ self.__precacheManifest = [
     "url": "fonts/Thyssen J Italic.ttf"
   },
   {
-    "revision": "3b1c111eba1f1eecd172183293bc488a",
-    "url": "fonts/JuliusSansOne-Regular.ttf"
+    "revision": "74aa700961f1db500d8d42806bbf0396",
+    "url": "fonts/Penelope Anne.ttf"
   },
   {
     "revision": "9541c3cf46f91126f47595541a26e046",
@@ -116,8 +116,8 @@ self.__precacheManifest = [
     "url": "fonts/BonvenoCF-Light.otf"
   },
   {
-    "revision": "74aa700961f1db500d8d42806bbf0396",
-    "url": "fonts/Penelope Anne.ttf"
+    "revision": "3b1c111eba1f1eecd172183293bc488a",
+    "url": "fonts/JuliusSansOne-Regular.ttf"
   },
   {
     "revision": "17c763604385cb5000b6",
